@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 /**
    @brief Builtin command: exit.
    @param args List of args.  Not examined.
@@ -13,6 +14,7 @@ int lsh_exit(char **args)
 {
   return 0;
 }
+
 
 
 /**
@@ -44,6 +46,7 @@ int lsh_launch(char **args)
 
   return 1;
 }
+
 
 /**
    @brief Execute shell built-in or launch program.
@@ -125,7 +128,6 @@ char *lsh_read_line(void)
   }
 #endif
 }
-
 
 
 
