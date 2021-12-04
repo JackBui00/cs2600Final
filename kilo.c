@@ -165,6 +165,15 @@ int getWindowSize(int *rows, int *cols) {
   }
 }
 
+/*** row operations ***/
+void editorAppendRow(char *s, size_t len) {
+  E.row.size = len;
+  E.row.chars = malloc(len + 1);
+  memcpy(E.row.chars, s, len);
+  E.row.chars[len] = '\0';
+  E.numrows = 1;
+}
+
 
 /*** file i/o ***/
 void editorOpen(char *filename) {
@@ -234,7 +243,6 @@ void editorDrawRows(struct abuf *ab) {
       if (len > E.screencols) len = E.screencols;
       abAppend(ab, E.row.chars, len);
     }
-    
     abAppend(ab, "\x1b[K", 3);
     if (y < E.screenrows - 1) {
       abAppend(ab, "\r\n", 2);
@@ -332,6 +340,7 @@ void initEditor() {
   E.cx = 0;
   E.cy = 0;
   E.numrows = 0;
+
 
   if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
 }
