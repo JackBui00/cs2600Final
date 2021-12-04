@@ -269,7 +269,7 @@ void editorScroll() {
   if (E.cy < E.numrows) {
     E.rx = editorRowCxToRx(&E.row[E.cy], E.cx);
   }
-  
+
   if (E.cy < E.rowoff) {
     E.rowoff = E.cy;
   }
@@ -388,26 +388,37 @@ void editorMoveCursor(int key) {
 
 void editorProcessKeypress() {
   int c = editorReadKey();
+
   switch (c) {
     case CTRL_KEY('q'):
       write(STDOUT_FILENO, "\x1b[2J", 4);
       write(STDOUT_FILENO, "\x1b[H", 3);
       exit(0);
       break;
+
     case HOME_KEY:
       E.cx = 0;
       break;
+
     case END_KEY:
       E.cx = E.screencols - 1;
       break;
+
     case PAGE_UP:
     case PAGE_DOWN:
       {
+        if (c == PAGE_UP) {
+          E.cy = E.rowoff;
+        } else if (c == PAGE_DOWN) {
+          E.cy = E.rowoff + E.screenrows - 1;
+          if (E.cy > E.numrows) E.cy = E.numrows;
+        }
         int times = E.screenrows;
         while (times--)
           editorMoveCursor(c == PAGE_UP ? ARROW_UP : ARROW_DOWN);
       }
       break;
+      
     case ARROW_UP:
     case ARROW_DOWN:
     case ARROW_LEFT:
