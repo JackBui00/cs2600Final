@@ -401,7 +401,8 @@ void editorProcessKeypress() {
       break;
 
     case END_KEY:
-      E.cx = E.screencols - 1;
+      if (E.cy < E.numrows)
+        E.cx = E.row[E.cy].size;
       break;
 
     case PAGE_UP:
@@ -418,7 +419,7 @@ void editorProcessKeypress() {
           editorMoveCursor(c == PAGE_UP ? ARROW_UP : ARROW_DOWN);
       }
       break;
-      
+
     case ARROW_UP:
     case ARROW_DOWN:
     case ARROW_LEFT:
