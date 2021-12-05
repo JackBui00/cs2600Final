@@ -50,7 +50,12 @@ enum editorHighlight {
 #define HL_HIGHLIGHT_NUMBERS (1<<0)
 
 
+#define HL_HIGHLIGHT_NUMBERS (1<<0)
+
 /*** data ***/
+
+
+
 
 struct editorSyntax {
   char *filetype;
@@ -233,6 +238,7 @@ void editorUpdateSyntax(erow *row) {
   if (E.syntax == NULL) return;
 
   int prev_sep = 1;
+
   int i = 0;
   while (i < row->rsize) {
     char c = row->render[i];
@@ -247,7 +253,6 @@ void editorUpdateSyntax(erow *row) {
         continue;
       }
     }
-
     prev_sep = is_separator(c);
     i++;
   }
@@ -261,6 +266,9 @@ int editorSyntaxToColor(int hl) {
     default: return 37;
   }
 }
+
+
+
 
 
 
@@ -283,7 +291,7 @@ void editorSelectSyntaxHighlight() {
         for (filerow = 0; filerow < E.numrows; filerow++) {
           editorUpdateSyntax(&E.row[filerow]);
         }
-
+        
         return;
       }
       i++;
@@ -485,8 +493,10 @@ char *editorRowsToString(int *buflen) {
 void editorOpen(char *filename) {
   free(E.filename);
   E.filename = strdup(filename);
+  
 
   editorSelectSyntaxHighlight();
+
 
   FILE *fp = fopen(filename, "r");
   if (!fp) die("fopen");
