@@ -5,11 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
-
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
-
 
 char *builtin_str[] = {
   "cd",
@@ -27,8 +25,6 @@ int lsh_num_builtins() {
   return sizeof(builtin_str) / sizeof(char *);
 }
 
-
-
 int lsh_cd(char **args)
 {
   if (args[1] == NULL) {
@@ -40,10 +36,6 @@ int lsh_cd(char **args)
   }
   return 1;
 }
-
-
-
-
 
 int lsh_help(char **args)
 {
@@ -60,16 +52,10 @@ int lsh_help(char **args)
   return 1;
 }
 
-
-
-
 int lsh_exit(char **args)
 {
   return 0;
 }
-
-
-
 
 int lsh_launch(char **args)
 {
@@ -96,8 +82,6 @@ int lsh_launch(char **args)
   return 1;
 }
 
-
-
 int lsh_execute(char **args)
 {
   int i;
@@ -115,8 +99,6 @@ int lsh_execute(char **args)
 
   return lsh_launch(args);
 }
-
-
 
 char *lsh_read_line(void)
 {
@@ -171,11 +153,8 @@ char *lsh_read_line(void)
 #endif
 }
 
-
-
 #define LSH_TOK_BUFSIZE 64
 #define LSH_TOK_DELIM " \t\r\n\a"
-
 
 char **lsh_split_line(char *line)
 {
@@ -229,12 +208,13 @@ void lsh_loop(void)
 
 int main(int argc, char **argv)
 {
-  // Load config files, if any.
+  
 
-  // Run command loop.
+
+  
   lsh_loop();
 
-  // Perform any shutdown/cleanup.
+  
 
   return EXIT_SUCCESS;
 }
